@@ -1,3 +1,5 @@
+mod git;
+
 fn main() {
-    println!("Hello, world!");
+    let repo = git::get_repo();
 }
