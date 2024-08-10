@@ -1,3 +1,4 @@
+use std::fs;
 use std::process::Command;
 
 /// New a post.
@@ -22,4 +23,20 @@ pub fn new(title: &str, scaffold: &str) -> std::process::Output {
         .args(vec!["new", scaffold, title])
         .output()
         .expect("Failed to execute hexo new.")
+}
+
+/// Get all scaffolds in scaffolds folder.
+pub fn get_scaffolds() -> Vec<String> {
+    let mut scaffolds = Vec::new();
+    for file in fs::read_dir("./scaffolds").unwrap() {
+        let path = file.unwrap().path();
+        let filename = path
+            .file_name()
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .replace(".md", "");
+        scaffolds.push(filename.to_string());
+    }
+    scaffolds
 }
