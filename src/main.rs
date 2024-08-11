@@ -30,5 +30,9 @@ fn welcome() -> Result<(), Box<dyn std::error::Error>> {
     }
     .expect("入口選項互動發生錯誤");
 
+    println!();
+    #[cfg(target_os = "windows")]
+    press_btn_continue::wait("輸入任意鍵結束小助手").unwrap();
+
     Ok(())
 }
